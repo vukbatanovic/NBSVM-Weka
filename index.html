@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="NBSVM-Weka : An implementation of the NBSVM classifier for Weka">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>NBSVM-Weka</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/vukbatanovic/NBSVM-Weka">View on GitHub</a>
+
+          <h1 id="project_title">NBSVM-Weka</h1>
+          <h2 id="project_tagline">An implementation of the NBSVM classifier for Weka</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/vukbatanovic/NBSVM-Weka/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/vukbatanovic/NBSVM-Weka/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="nbsvm-weka---a-java-implementation-of-the-multiclass-nbsvm-classifier-for-weka" class="anchor" href="#nbsvm-weka---a-java-implementation-of-the-multiclass-nbsvm-classifier-for-weka" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>NBSVM-Weka - a Java implementation of the multiclass NBSVM classifier for Weka</h1>
+
+<p>NBSVM is an algorithm, originally designed for binary text/sentiment classification, which combines the Multinomial Naive Bayes (MNB) classifier with the Support Vector Machine (SVM).
+It does so through the element-wise multiplication of standard feature vectors by the positive class/negative class ratios of MNB log-counts. Such vectors are then used as inputs for the SVM classifier.</p>
+
+<p>This implementation extends the <a href="http://github.com/sidaw/nbsvm">original algorithm</a> to support multiclass classification using the one-vs-all approach.
+When dealing with <em>N</em> classes the classifier calculates <em>N</em> distinct ratios of MNB log-counts by separately considering each class as 'positive' and all the other classes taken together as 'negative'.
+These ratios are then combined with the input feature vectors of <em>N</em> separate discriminative classifiers.</p>
+
+<h2>
+<a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dependencies</h2>
+
+<p>This package relies on the <a href="http://www.csie.ntu.edu.tw/%7Ecjlin/liblinear/">LibLINEAR library</a> and its <a href="http://github.com/bwaldvogel/liblinear-weka">Weka wrapper class</a>. The LibLINEAR Weka package must be installed in order for NBSVM-Weka to function.
+Since it uses LibLINEAR, logistic regression can easily be used as the discriminative classifier instead of SVM (thereby maximizing the log-likelihood instead of the SVM margin).</p>
+
+<p>Certain SVMTypes in the LibLINEAR package which are not compatible with (this implementation of) NBSVM, such as Support Vector Regression models or Crammer and Singer's multiclass classification algorithm, have been disabled.
+However, for the sake of consistency, the numbering of options used in LibLINEAR has been preserved.</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>NBSVM-Weka can be installed as an unofficial plug-in module within Weka.
+To do so, download the <a href="https://github.com/vukbatanovic/NBSVM-Weka/releases/download/v1.0.0/NBSVM-Weka_1.0.0.zip">NBSVM-Weka package</a>.
+Open the Weka package manager (available in Weka &gt;= 3.7) and use the "Unofficial - File/URL" option to select and install NBSVM-Weka.
+After restarting Weka, the list of available classifiers (within the functions category) will contain the NBSVM option.</p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>The classifier can be used either through the Weka GUI or through the command line interface.
+Either way, the configuration options are very similar to the options of LibLINEAR's wrapper for Weka.
+One difference is that NBSVM-Weka is not compatible with Support Vector Regression and Crammer and Singer's multiclass classification algorithm, making those SVMTypes disabled.</p>
+
+<p>In addition, NBSVM-Weka allows the user to specify the Laplace smoothing parameter alpha (<em>default: 1.0</em>) and the interpolation parameter beta (<em>default: 0.25</em>).
+These parameters can be set in the command line options as -L  (for Laplace smoothing) and -I  (for interpolation). </p>
+
+<h2>
+<a id="references" class="anchor" href="#references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>References</h2>
+
+<p>If you wish to use the NBSVM classifier in your paper or project, please cite the original paper:</p>
+
+<p><strong><a href="http://nlp.stanford.edu/pubs/sidaw12_simple_sentiment.pdf">Baselines and Bigrams: Simple, Good Sentiment and Topic Classification</a></strong>, Sida Wang, Christopher D. Manning, in Proceedings of the 50th Annual Meeting of the Association for Computational Linguistics (ACL 2012), pp. 90–94, Jeju Island, South Korea (2012).</p>
+
+<p>This Weka package was introduced in the following paper:</p>
+
+<p><strong>Reliable Baselines for Sentiment Analysis in Resource-Limited Languages: The Serbian Movie Review Dataset</strong>, Vuk Batanović, Boško Nikolić, Milan Milosavljević, in Proceedings of the 10th International Conference on Language Resources and Evaluation (LREC 2016), Portorož, Slovenia. (2016)</p>
+
+<h2>
+<a id="additional-documentation" class="anchor" href="#additional-documentation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Additional Documentation</h2>
+
+<p>All methods contain extensive documentation and comments.
+If you have any questions about the classifier's functioning, please review the supplied javadoc documentation, the source code, and the papers listed above.
+If no answer can be found, feel free to contact me at bv115045p / at / student.etf.bg.ac.rs</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p>GNU General Public License 3.0 (GNU GPL 3.0)</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">NBSVM-Weka maintained by <a href="https://github.com/vukbatanovic">vukbatanovic</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
