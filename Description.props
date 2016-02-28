@@ -1,0 +1,39 @@
+# Description file for NBSVM-Weka
+
+# Package name (required)
+PackageName=NBSVM
+
+# Version (required)
+Version=1.0.0
+
+# Date
+Date=2016-03-01
+
+# Title (required)
+Title=An NBSVM implementation capable of multiclass (one-vs-all) classification.
+
+Category=Classification
+
+# Author (required)
+Author=Vuk Batanovic <bv115045p@student.etf.bg.ac.rs>
+
+# Maintainer (required)
+Maintainer=Vuk Batanovic <bv115045p@student.etf.bg.ac.rs>
+
+# License (required)
+License=GPL 3.0
+
+# Description (required)
+Description=This package contains a Java implementation of the NBSVM algorithm which was first presented as a binary classifier in "Baselines and Bigrams: Simple, Good Sentiment and Topic Classification," Sida Wang, Christopher D. Manning, in Proceedings of the 50th Annual Meeting of the Association for Computational Linguistics (ACL 2012), pp. 90-94, Jeju Island, South Korea (2012). This version extends the original algorithm to also support multiclass (one-vs-all) classification. The code relies on the LibLINEAR library and its Weka wrapper class. See the webpage for more information.
+
+# Package URL for obtaining the package archive (required)
+PackageURL=https://github.com/vukbatanovic/NBSVM-Weka/releases/download/v1.0.0/NBSVM-Weka_1.0.0.zip
+
+# URL for further information
+URL=https://github.com/vukbatanovic/NBSVM-Weka/
+
+# Related to other packages
+Related=LibLINEAR
+
+# Dependencies
+Depends=weka (>=3.7.12), LibLINEAR (>=1.9.5)
