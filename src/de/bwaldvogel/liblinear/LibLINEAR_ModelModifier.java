@@ -6,7 +6,7 @@ import java.io.Serializable;
  * An auxiliary class used to apply NBSVM interpolation to the internal LibLINEAR model weights
  * 
  * @author Vuk Batanović
- * @see "Reliable Baselines for Sentiment Analysis in Resource-Limited Languages: The Serbian Movie Review Dataset", Vuk Batanović, Boško Nikolić, Milan Milosavljević, in Proceedings of the 10th International Conference on Language Resources and Evaluation (LREC 2016), Portorož, Slovenia. (2016)
+ * @see <i>Reliable Baselines for Sentiment Analysis in Resource-Limited Languages: The Serbian Movie Review Dataset</i>, Vuk Batanović, Boško Nikolić, Milan Milosavljević, in Proceedings of the 10th International Conference on Language Resources and Evaluation (LREC 2016), pp. 2688-2696, Portorož, Slovenia (2016).
  * <br>
  * https://github.com/vukbatanovic/NBSVM-Weka
  * <br>

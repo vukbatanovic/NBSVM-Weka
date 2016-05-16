@@ -27,7 +27,7 @@ import weka.filters.unsupervised.attribute.ReplaceMissingValues;
 /**
   <!-- globalinfo-start -->
   * An NBSVM implementation capable of multiclass (one-vs-all) classification. It relies on the LibLINEAR library and its Weka wrapper class.<br><br>
-  * Sida Wang, Christopher D. Manning: Baselines and Bigrams: Simple, Good Sentiment and Topic Classification, in Proceedings of the 50th Annual Meeting of the Association for Computational Linguistics (ACL 2012), pp. 90–94, Jeju Island, South Korea. (2012) URL: nlp.stanford.edu/pubs/sidaw12_simple_sentiment.pdf
+  * Sida Wang, Christopher D. Manning: Baselines and Bigrams: Simple, Good Sentiment and Topic Classification, in Proceedings of the 50th Annual Meeting of the Association for Computational Linguistics (ACL 2012), pp. 90–94, Jeju Island, South Korea (2012). URL: nlp.stanford.edu/pubs/sidaw12_simple_sentiment.pdf
   *	<p/>
   <!-- globalinfo-end -->
  *
@@ -66,6 +66,12 @@ import weka.filters.unsupervised.attribute.ReplaceMissingValues;
  * <pre> -Z
  *  Turn on normalization of input data (default: off)</pre>
  *
+ * <pre>
+ * -I &lt;int&gt;
+ *  The maximum number of iterations to perform.
+ *  (default 1000)
+ * </pre>
+ *
  * <pre> -P
  *  Use probability estimation (default: off)
  * currently for L2-regularized logistic regression only! </pre>
@@ -80,10 +86,10 @@ import weka.filters.unsupervised.attribute.ReplaceMissingValues;
  * <pre> -B &lt;double&gt;
  *  Add Bias term with the given value if &gt;= 0; if &lt; 0, no bias term added (default: 1)</pre>
  *
- * <pre> -L &lt;double&gt;
+ * <pre> -A &lt;double&gt;
  *  Set the value of the Laplace smoothing parameter alpha (default: 1.0)</pre>
  *    
- * <pre> -I &lt;double&gt;
+ * <pre> -X &lt;double&gt;
  *  Set the value of the interpolation parameter beta (default: 0.25)</pre>
  *
  * <pre> -D
@@ -93,17 +99,17 @@ import weka.filters.unsupervised.attribute.ReplaceMissingValues;
  <!-- options-end -->
  *
  * @author Vuk Batanović
- * @see "Reliable Baselines for Sentiment Analysis in Resource-Limited Languages: The Serbian Movie Review Dataset", Vuk Batanović, Boško Nikolić, Milan Milosavljević, in Proceedings of the 10th International Conference on Language Resources and Evaluation (LREC 2016), Portorož, Slovenia. (2016)
+ * @see <i>Reliable Baselines for Sentiment Analysis in Resource-Limited Languages: The Serbian Movie Review Dataset</i>, Vuk Batanović, Boško Nikolić, Milan Milosavljević, in Proceedings of the 10th International Conference on Language Resources and Evaluation (LREC 2016), pp. 2688-2696, Portorož, Slovenia (2016).
  * <br>
  * https://github.com/vukbatanovic/NBSVM-Weka
  * <br>
- * @version 1.0.0
+ * @version 1.0.1
  */
 public class NBSVM extends LibLINEAR {
 
 	private static final long serialVersionUID = -884649357319242378L;
 	
-	public static final String REVISION = "1.0.0";
+	public static final String REVISION = "1.0.1";
 
 	/**
 	 * The indexing value used to access the vector of r values in the r matrix when dealing with a two-class classification
@@ -604,12 +610,14 @@ public class NBSVM extends LibLINEAR {
         result.addElement(new Option("\tSet the parameters C of class i to weight[i]*C\n" + "\t (default: 1)", "W", 1, "-W <double>"));
 
         result.addElement(new Option("\tAdd Bias term with the given value if >= 0; if < 0, no bias term added (default: 1)", "B", 1, "-B <double>"));
-	    ///////////////////////////////////////////////////////////////////////////////////////////
+	    
+        result.addElement(new Option("\tThe maximum number of iterations to perform.\n" + "\t(default 1000)", "I", 1, "-I <int>"));
+        ///////////////////////////////////////////////////////////////////////////////////////////
         
         
-    	result.addElement(new Option("\tSet the Laplace smoothing parameter alpha\n" + "\t (default: 1.0)", "L", 1, "-L <double>"));
+    	result.addElement(new Option("\tSet the Laplace smoothing parameter alpha\n" + "\t (default: 1.0)", "A", 1, "-A <double>"));
         
-    	result.addElement(new Option("\tSet the interpolation parameter beta\n" + "\t (default: 0.25)", "I", 1, "-I <double>"));
+    	result.addElement(new Option("\tSet the interpolation parameter beta\n" + "\t (default: 0.25)", "X", 1, "-X <double>"));
         
     	
 		//////////////////////// Copied from AbstractClassifier class /////////////////////////////
@@ -622,6 +630,13 @@ public class NBSVM extends LibLINEAR {
         	        "\tIf set, classifier capabilities are not checked before classifier is built\n"
         	          + "\t(use with caution).", "-do-not-check-capabilities", 0,
         	        "-do-not-check-capabilities"));
+        result.addElement(new Option(
+        	      "\tThe number of decimal places for the output of numbers in the model"
+        	        + " (default " + m_numDecimalPlaces + ").",
+        	      "num-decimal-places", 1, "-num-decimal-places"));
+        result.addElement(new Option(
+        	            "\tThe desired batch size for batch prediction " + " (default " + m_BatchSize + ").",
+        	            "batch-size", 1, "-batch-size"));
 	    ///////////////////////////////////////////////////////////////////////////////////////////
     	
         return result.elements();
@@ -651,6 +666,12 @@ public class NBSVM extends LibLINEAR {
      * <pre> -Z
      *  Turn on normalization of input data (default: off)</pre>
      *
+     * <pre>
+     * -I &lt;int&gt;
+     *  The maximum number of iterations to perform.
+     *  (default 1000)
+     * </pre>
+     *
      * <pre> -P
      *  Use probability estimation (default: off)
      * currently for L2-regularized logistic regression only! </pre>
@@ -665,10 +686,10 @@ public class NBSVM extends LibLINEAR {
      * <pre> -B &lt;double&gt;
      *  Add Bias term with the given value if &gt;= 0; if &lt; 0, no bias term added (default: 1)</pre>
      *  
-     * <pre> -L &lt;double&gt;
+     * <pre> -A &lt;double&gt;
      *  Set the value of the Laplace smoothing parameter alpha (default: 1.0)</pre>
      *    
-     * <pre> -I &lt;double&gt;
+     * <pre> -X &lt;double&gt;
      *  Set the value of the interpolation parameter beta (default: 0.25)</pre>
      *
      * <pre> -D
@@ -682,13 +703,13 @@ public class NBSVM extends LibLINEAR {
      */
     @Override
     public void setOptions(String[] options) throws Exception {
-        String tmpStr = Utils.getOption('L', options);
+        String tmpStr = Utils.getOption('A', options);
         if (tmpStr.length() != 0)
             setAlpha(Double.parseDouble(tmpStr));
         else
             setAlpha(1.0);
         
-        tmpStr = Utils.getOption('I', options);
+        tmpStr = Utils.getOption('X', options);
         if (tmpStr.length() != 0)
             setBeta(Double.parseDouble(tmpStr));
         else
@@ -728,10 +749,13 @@ public class NBSVM extends LibLINEAR {
 
         if (getProbabilityEstimates()) options.add("-P");
         
-        options.add("-L");
+        options.add("-I");
+        options.add("" + getMaximumNumberOfIterations());
+        
+        options.add("-A");
         options.add("" + getAlpha());
         
-        options.add("-I");
+        options.add("-X");
         options.add("" + getBeta());
 
         return options.toArray(new String[options.size()]);

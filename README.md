@@ -15,8 +15,8 @@ However, for the sake of consistency, the numbering of options used in LibLINEAR
 
 ## Installation
 NBSVM-Weka can be installed as an unofficial plug-in module within Weka.
-To do so, download the [NBSVM-Weka package](https://github.com/vukbatanovic/NBSVM-Weka/releases/download/v1.0.0/NBSVM-Weka_1.0.0.zip).
-Open the Weka package manager (available in Weka >= 3.7) and use the "Unofficial - File/URL" option to select and install NBSVM-Weka.
+To do so, download the [NBSVM-Weka package](https://github.com/vukbatanovic/NBSVM-Weka/releases/download/v1.0.1/NBSVM-Weka_1.0.1.zip).
+Open the Weka package manager and use the "Unofficial - File/URL" option to select and install NBSVM-Weka.
 After restarting Weka, the list of available classifiers (within the functions category) will contain the NBSVM option.
 
 ## Usage
@@ -25,7 +25,7 @@ Either way, the configuration options are very similar to the options of LibLINE
 One difference is that NBSVM-Weka is not compatible with Support Vector Regression and Crammer and Singer's multiclass classification algorithm, making those SVMTypes disabled.
 
 In addition, NBSVM-Weka allows the user to specify the Laplace smoothing parameter alpha (*default: 1.0*) and the interpolation parameter beta (*default: 0.25*).
-These parameters can be set in the command line options as -L <double> (for Laplace smoothing) and -I <double> (for interpolation). 
+These parameters can be set in the command line options as -A <double> (for Laplace smoothing) and -X <double> (for interpolation). 
 
 ## References
 If you wish to use the NBSVM classifier in your paper or project, please cite the original paper:
@@ -34,7 +34,7 @@ If you wish to use the NBSVM classifier in your paper or project, please cite th
 
 This Weka package was introduced in the following paper:
 
-**Reliable Baselines for Sentiment Analysis in Resource-Limited Languages: The Serbian Movie Review Dataset**, Vuk Batanović, Boško Nikolić, Milan Milosavljević, in Proceedings of the 10th International Conference on Language Resources and Evaluation (LREC 2016), Portorož, Slovenia. (2016)
+**[Reliable Baselines for Sentiment Analysis in Resource-Limited Languages: The Serbian Movie Review Dataset](http://www.lrec-conf.org/proceedings/lrec2016/pdf/284_Paper.pdf)**, Vuk Batanović, Boško Nikolić, Milan Milosavljević, in Proceedings of the 10th International Conference on Language Resources and Evaluation (LREC 2016), pp. 2688-2696, Portorož, Slovenia (2016).
 
 ## Additional Documentation
 All methods contain extensive documentation and comments.
