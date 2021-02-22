@@ -39,7 +39,7 @@ This Weka package was introduced in the following paper:
 ## Additional Documentation
 All methods contain extensive documentation and comments.
 If you have any questions about the classifier's functioning, please review the supplied javadoc documentation, the source code, and the papers listed above.
-If no answer can be found, feel free to contact me at vuk.batanovic / at / student.etf.bg.ac.rs
+If no answer can be found, feel free to contact me at vuk.batanovic / at / ic.etf.bg.ac.rs
 
 ## License
 GNU General Public License 3.0 (GNU GPL 3.0)
